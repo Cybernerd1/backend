@@ -17,10 +17,10 @@ app.set("view engine",'ejs')
 
 app.use((req,res,next)=>{
     console.log("This is middleware")
-    const a=2
-    const b=3
+    // const a=2
+    // const b=3
 
-    console.log(a+b)
+    // console.log(a+b)
     return next()
 })
 
@@ -47,6 +47,47 @@ app.get('/register',(req,res) =>{
     res.render('register')
 })
 
+app.get('/getusers',(req,res)=>{
+    // userModel.find({
+    //     username: 'ayush2'
+    // }).then((users)=>{
+    //     res.send(users)
+    // })
+
+
+    // userModel.findOne({
+    // //     username:'ayush2'
+    // // }).then((users)=>{
+    // //     res.send(users)
+    // // })
+
+    // username:'ayush22'
+    // }).then((users)=>{
+    //     console.log(users)
+    //     res.send(users)
+    // })
+    userModel.find({
+        //     username:'ayush2'
+        // }).then((users)=>{
+        //     res.send(users)
+        // })
+    
+        username:'ayush22'
+        }).then((users)=>{
+            console.log(users)
+            res.send(users)
+        })
+})
+
+app.get('/userUpdate',async (req,res)=>{
+    await userModel.findOneAndUpdate({
+        username:'ayush2'
+    },{
+        email:'ayush2@gmail.com'
+    })
+    res.send('user updated')
+})
+
 app.post('/register',async (req,res) =>{
     
     const {username, email, password} =req.body 
@@ -56,9 +97,17 @@ app.post('/register',async (req,res) =>{
         email:email,
          password:password,
     })
-    console.log(newUser)
+    // console.log(newUser)
     // res.send('user register')
     res.send(newUser)
+})
+
+app.get('/userDeleted',async (req,res)=>{
+    await userModel.findOneAndDelete({
+        username:'a'
+    })
+
+    res.send('user deleted')
 })
 
 
